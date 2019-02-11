@@ -4,6 +4,8 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,6 +33,7 @@ public class Pastel {
 	@Column(name="is_especial")
 	private boolean especial;
 	@Column(name="ds_massa")
+	@Enumerated(EnumType.STRING)
 	private Massa massa;
 	@CreationTimestamp
 	private Calendar dataCadastro;
