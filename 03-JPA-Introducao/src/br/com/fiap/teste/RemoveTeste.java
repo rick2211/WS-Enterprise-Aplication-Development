@@ -14,6 +14,8 @@ public class RemoveTeste {
 
 		Pastel pastel = em.find(Pastel.class, 1);
 		em.remove(pastel);
+		em.getTransaction().begin();
+		em.getTransaction().commit();
 
 		em.close();
 		fabrica.close();
