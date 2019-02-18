@@ -1,3 +1,4 @@
+
 # Created by https://www.gitignore.io/api/eclipse
 # Edit at https://www.gitignore.io/?templates=eclipse
 
@@ -14,7 +15,6 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-RemoteSystemsTempFiles/
 
 # External tool builders
 .externalToolBuilders/
@@ -59,6 +59,9 @@ RemoteSystemsTempFiles/
 .cache-main
 .scala_dependencies
 .worksheet
+
+RemoteSystemsTempFiles/
+
 
 # Annotation Processing
 .apt_generated

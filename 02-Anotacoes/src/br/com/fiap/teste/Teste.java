@@ -1,48 +1,41 @@
 package br.com.fiap.teste;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
-import br.com.fiap.anotacoes.Coluna;
-import br.com.fiap.anotacoes.Tabela;
-import br.com.fiap.bean.Aluno;
-import br.com.fiap.bean.Carro;
+import br.com.fiap.anotacao.Coluna;
+import br.com.fiap.bean.Pessoa;
 
 public class Teste {
 
 	public static void main(String[] args) {
-		// Instanciar um carro
-		Carro carro = new Carro();
-		criarTabela(carro);
-		criarSelect(carro);
+		//Instanciar uma pessoa
+		Pessoa p = new Pessoa();
 		
-		Aluno aluno = new Aluno();
-		criarSelect(aluno);		
-	}
-	
-	public static void criarSelect(Object obj) {
-		//Recuperar o nome configurado na anotação @Tabela
-		Tabela anotacao = obj.getClass().getAnnotation(Tabela.class);
-		//Exibir o SQL
-		System.out.println("SELECT * FROM " + anotacao.nome());
-	}
-
-	public static  void criarTabela(Object obj) {
-		// API Reflection vamos recuperar o nome da classe
-		String nome = obj.getClass().getName();
+		//API Reflection -> obter o nome da classe
+		String nome = p.getClass().getName();
 		System.out.println(nome);
 		
-		//Recuperar os atributos da classe
-		Field[] atributos = obj.getClass().getDeclaredFields();
-		for (Field f : atributos) {
-			System.out.println(f.getName());
+		//Obter os métodos da classe
+		System.out.println("Métodos:");
+		Method[] metodos = p.getClass().getDeclaredMethods();
+		for (Method item : metodos) {
+			System.out.println(item.getName());
+		}
+		
+		//Obter os atributos da classe
+		System.out.println("Atributos:");
+		Field[] atributos = p.getClass().getDeclaredFields();
+		for (int i=0; i < atributos.length; i++) {
+			System.out.println(atributos[i].getName());
 			//Recuperar a anotação @Coluna
-			Coluna anotacao = f.getAnnotation(Coluna.class);
+			Coluna anotacao = 
+					atributos[i].getAnnotation(Coluna.class);
 			System.out.println("Nome: " + anotacao.nome());
 			System.out.println("Tipo: " + anotacao.tipo());
-			System.out.println("Obrigatório: " + anotacao.obrigatorio());
+			System.out.println("Tamanho: " + anotacao.tamanho());
 		}
 	}
-
 }
 
 

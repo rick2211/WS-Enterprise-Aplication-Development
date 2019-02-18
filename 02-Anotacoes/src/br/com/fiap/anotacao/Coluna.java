@@ -1,20 +1,18 @@
-package br.com.fiap.anotacoes;
+package br.com.fiap.anotacao;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-//Manter a anotação até a execução
-@Retention(RetentionPolicy.RUNTIME)
-//Para quem serve a anotação?
-@Target(ElementType.FIELD) //Atributos
+@Retention(RetentionPolicy.RUNTIME)//mantem a anotação até a execução
+@Target(ElementType.FIELD) //anotação só para atributos
 public @interface Coluna {
 
 	String nome();
 	
 	String tipo();
 	
-	boolean obrigatorio() default false;
+	int tamanho() default 255;
 	
 }
