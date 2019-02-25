@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 
 import br.com.fiap.dao.FarmaciaDAO;
 import br.com.fiap.entity.Farmacia;
+import br.com.fiap.exception.CodigoInvalidoException;
 import br.com.fiap.exception.CommitException;
 
 public class FarmaciaDAOImpl implements FarmaciaDAO {
@@ -18,8 +19,11 @@ public class FarmaciaDAOImpl implements FarmaciaDAO {
 		em.persist(farmacia);
 	}
 
-	public void deletar(Integer codigo) {
+	public void deletar(Integer codigo) throws CodigoInvalidoException {
 		Farmacia find = buscar(codigo);
+		if (find == null) {
+			throw new CodigoInvalidoException();
+		}
 		em.remove(find);
 	}
 

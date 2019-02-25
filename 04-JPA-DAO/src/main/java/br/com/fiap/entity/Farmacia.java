@@ -24,7 +24,7 @@ public class Farmacia implements Serializable{
 
 	@Id
 	@Column(name="cd_farmacia", nullable=false,length=50)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SQ_T_FARMACIA")
+	@GeneratedValue(generator ="farmacia" ,strategy = GenerationType.SEQUENCE)
 	private Integer cdFarmacia;
 	
 	@Column(name="nm_farmacia")
