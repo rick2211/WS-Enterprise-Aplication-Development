@@ -8,29 +8,38 @@ import br.com.fiap.dao.GenericDAO;
 import br.com.fiap.exception.CodigoInvalidoException;
 import br.com.fiap.exception.CommitException;
 
-public abstract class GenericDAOImpl<T,K> 
-				implements GenericDAO<T, K> {
+
+public abstract class GenericDAOImpl<T,K> implements GenericDAO<T, K> {
 
 	private EntityManager em;
-	
 	private Class<T> clazz;
-	
+
+	public GenericDAOImpl() {
+
+	}
+
 	@SuppressWarnings("all")
 	public GenericDAOImpl(EntityManager em) {
+		super();
 		this.em = em;
-		this.clazz = (Class<T>) ((ParameterizedType) 
-			getClass().getGenericSuperclass())
+		this.clazz = (Class<T>) ((ParameterizedType)getClass()
+				.getGenericSuperclass())
 				.getActualTypeArguments()[0];
 	}
-	
+
+
+
 	@Override
 	public void cadastrar(T entidade) {
 		em.persist(entidade);
+
+
 	}
 
 	@Override
 	public void alterar(T entidade) {
 		em.merge(entidade);
+
 	}
 
 	@Override
@@ -40,12 +49,16 @@ public abstract class GenericDAOImpl<T,K>
 			throw new CodigoInvalidoException();
 		}
 		return entidade;
+
+
 	}
+
 
 	@Override
 	public void remover(K codigo) throws CodigoInvalidoException {
 		T entidade = buscar(codigo);
 		em.remove(entidade);
+
 	}
 
 	@Override
@@ -53,14 +66,18 @@ public abstract class GenericDAOImpl<T,K>
 		try {
 			em.getTransaction().begin();
 			em.getTransaction().commit();
-		}catch(Exception e) {
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 			em.getTransaction().rollback();
 			throw new CommitException();
 		}
-		
+
+
 	}
 
-	
-	
+
+
 }
+

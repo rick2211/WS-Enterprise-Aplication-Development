@@ -2,6 +2,12 @@ package br.com.fiap.exception;
 
 public class CodigoInvalidoException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	public CodigoInvalidoException() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -28,6 +34,8 @@ public class CodigoInvalidoException extends Exception {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
+
+
 }
+
+

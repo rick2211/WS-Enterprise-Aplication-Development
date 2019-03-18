@@ -5,6 +5,7 @@ import br.com.fiap.exception.CommitException;
 
 public interface GenericDAO<T,K> {
 
+
 	void cadastrar(T entidade);
 	
 	void alterar(T entidade);
@@ -16,5 +17,3 @@ public interface GenericDAO<T,K> {
 	void commit() throws CommitException;
 	
 }
-
-
