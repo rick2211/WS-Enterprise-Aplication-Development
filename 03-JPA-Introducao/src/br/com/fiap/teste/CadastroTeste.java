@@ -19,17 +19,19 @@ public class CadastroTeste {
 			Persistence.createEntityManagerFactory("CLIENTE_ORACLE");
 		//Criar o entity manager utilizando a fábrica
 		EntityManager em = fabrica.createEntityManager();
-		
+	
 		//Instanciar um pastel
 		Pastel pastel = new Pastel("Carne", 3, false, Massa.TRADICIONAL, 
-				new GregorianCalendar(2019,Calendar.FEBRUARY, 17), null);
-	
+				new GregorianCalendar(2019, Calendar.FEBRUARY, 17), null);
+		
 		em.persist(pastel);
+		
 		em.getTransaction().begin();
 		em.getTransaction().commit();
+		
 		em.close();
 		fabrica.close();
-	}
+	}	
 	
 }
 

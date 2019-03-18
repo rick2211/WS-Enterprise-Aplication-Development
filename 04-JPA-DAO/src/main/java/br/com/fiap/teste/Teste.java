@@ -1,5 +1,6 @@
 package br.com.fiap.teste;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.persistence.EntityManager;
@@ -16,41 +17,54 @@ import br.com.fiap.exception.CommitException;
 public class Teste {
 
 	public static void main(String[] args) {
-		EntityManagerFactory fabrica =  Persistence.createEntityManagerFactory("CLIENTE_ORACLE");
+		//Instanciar a galera
+		EntityManagerFactory fabrica = 
+			Persistence.createEntityManagerFactory("CLIENTE_ORACLE");
 		EntityManager em = fabrica.createEntityManager();
+		
 		FarmaciaDAO dao = new FarmaciaDAOImpl(em);
 		
-		Farmacia f = new Farmacia("Noia da Vila", new GregorianCalendar(2019,02,11), TipoFarmacia.COMUM, true);
+		//Cadastrar uma farmácia
+		Farmacia farmacia = new Farmacia("Nissei",
+			new GregorianCalendar(2010, Calendar.JANUARY,15), 
+			TipoFarmacia.DROGRARIA, true);
 		
 		try {
-			dao.cadastrar(f);
+			dao.cadastrar(farmacia);
 			dao.commit();
 		} catch (CommitException e) {
-			
 			e.printStackTrace();
 		}
 		
-		f.setNome("Boca do Cenôra");
-		dao.atualizar(f);
-		
-		
-		Farmacia buscar = dao.buscar(f.getCdFarmacia());
-		System.out.println(buscar.getCdFarmacia());
+		//Atualizar
+		farmacia.setNome("Ultrafarma");
 		
 		try {
-			dao.deletar(buscar.getCdFarmacia());
+			dao.atualizar(farmacia);
+			dao.commit();
+		} catch (CommitException e) {
+			e.printStackTrace();
+		}
+
+		//Pesquisar farmácia de código 1
+		Farmacia busca = dao.buscar(1);
+		System.out.println(busca.getNome());
+		
+		//Remover farmácia de código 1
+		try {
+			dao.deletar(1);
 			dao.commit();
 		} catch (CodigoInvalidoException e) {
-			
 			e.printStackTrace();
 		} catch (CommitException e) {
-			
 			e.printStackTrace();
 		}
 		
 		em.close();
 		fabrica.close();
-
+		
 	}
-
+	
 }
+
+

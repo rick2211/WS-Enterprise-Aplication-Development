@@ -8,8 +8,9 @@ import br.com.fiap.exception.CodigoInvalidoException;
 import br.com.fiap.exception.CommitException;
 
 public class FarmaciaDAOImpl implements FarmaciaDAO {
-	private EntityManager em;
 
+	private EntityManager em;
+	
 	public FarmaciaDAOImpl(EntityManager em) {
 		super();
 		this.em = em;
@@ -19,20 +20,18 @@ public class FarmaciaDAOImpl implements FarmaciaDAO {
 		em.persist(farmacia);
 	}
 
-	public void deletar(Integer codigo) throws CodigoInvalidoException {
-		Farmacia find = buscar(codigo);
-		if (find == null) {
+	public void deletar(int codigo) throws CodigoInvalidoException {
+		Farmacia farmacia = buscar(codigo);
+		if (farmacia == null)
 			throw new CodigoInvalidoException();
-		}
-		em.remove(find);
+		em.remove(farmacia);
 	}
 
 	public void atualizar(Farmacia farmacia) {
 		em.merge(farmacia);
 	}
 
-	public Farmacia buscar(Integer codigo) {
-		
+	public Farmacia buscar(int codigo) {
 		return em.find(Farmacia.class, codigo);
 	}
 
@@ -40,14 +39,16 @@ public class FarmaciaDAOImpl implements FarmaciaDAO {
 		try {
 			em.getTransaction().begin();
 			em.getTransaction().commit();
-			
-		} catch (Exception e) {
+		}catch(Exception e) {
 			e.printStackTrace();
 			em.getTransaction().rollback();
 			throw new CommitException();
 		}
-		
-		
 	}
 
 }
+
+
+
+
+
