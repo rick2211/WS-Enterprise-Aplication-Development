@@ -5,7 +5,6 @@ import javax.persistence.Persistence;
 
 public class EntityManagerFactorySingleton {
 
-<<<<<<< HEAD
 	//1- atributo estático que será único
 	private static EntityManagerFactory emf;
 	
@@ -24,21 +23,3 @@ public class EntityManagerFactorySingleton {
 }
 
 
-
-
-=======
-	private static EntityManagerFactory emf;
-
-	private EntityManagerFactorySingleton() {
-
-	}
-
-	public static EntityManagerFactory getInstance() {
-		if(emf==null) {
-			emf =Persistence
-					.createEntityManagerFactory("CLIENTE_ORACLE");
-		}
-		return emf;
-	}
-}
->>>>>>> e77468f38a5b5728a72d7cdce95c0fa6e0c6a53d
