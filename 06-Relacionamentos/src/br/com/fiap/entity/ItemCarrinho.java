@@ -1,8 +1,5 @@
 package br.com.fiap.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,24 +11,69 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="T_ITEM_CARRINHO")
-@SequenceGenerator(name="item_carrinho", sequenceName="SEQ_T_ITEM_CARRINHO", allocationSize=1)
+@Table(name = "T_ITEM_CARRINHO")
+@SequenceGenerator(name = "item", sequenceName = "SQ_T_ITEM_CARRINHO", allocationSize = 1)
 public class ItemCarrinho {
+
 	@Id
-	@Column(name="cd_item_carrinho")
-	@GeneratedValue(generator = "item_carrinho", strategy=GenerationType.SEQUENCE)
+	@Column(name = "cd_item")
+	@GeneratedValue(generator = "item", strategy = GenerationType.SEQUENCE)
 	private int codigo;
-	@Column(name= "qt_quantidade")
-	private int quantidade;
-	@Column(name= "vl_valor", nullable=false)
-	private double valor;
-	
+
 	@ManyToOne
-	@JoinColumn(name="cd_carrinho")
-	private CarrinhoCompras carrinhoCompras;
+	@JoinColumn(name = "cd_carrinho")
+	private CarrinhoCompras carrinho;
 	
 	@ManyToOne
 	@JoinColumn(name="cd_produto")
 	private Produto produto;
 
+	@Column(name = "nr_itens")
+	private int quantidade;
+
+	@Column(name = "vl_item")
+	private double valor;
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	public CarrinhoCompras getCarrinho() {
+		return carrinho;
+	}
+
+	public void setCarrinho(CarrinhoCompras carrinho) {
+		this.carrinho = carrinho;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public double getValor() {
+		return valor;
+	}
+
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+
+	
+	
 }

@@ -10,20 +10,68 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="T_CLIENTE")
-@SequenceGenerator(name="cliente", sequenceName="SEQ_T_CLIENTE", allocationSize=1)
+@Table(name = "T_CLIENTE")
+@SequenceGenerator(name = "cliente", sequenceName = "SQ_T_CLIENTE", allocationSize = 1)
 public class Cliente {
-	
+
 	@Id
-	@Column(name="cd_cliente")
-	@GeneratedValue(generator = "cliente", strategy=GenerationType.SEQUENCE)
+	@Column(name = "cd_cliente")
+	@GeneratedValue(generator = "cliente", strategy = GenerationType.SEQUENCE)
 	private int codigo;
-	@Column(name= "nm_cliente", nullable= false, length= 50)
+	
+	//mappedBy -> atributo que mapeia a FK na classe Cliente
+	@OneToOne(mappedBy="cliente")
+	private CarrinhoCompras carrinho;
+
+	@Column(name = "nm_cliente", nullable = false, length = 100)
 	private String nome;
-	@Column(name= "nr_cpf", nullable= false, length= 11)
+
+	@Column(name = "nr_cpf", length = 11)
 	private String cpf;
 	
-	@OneToOne(mappedBy="cliente")
-	private CarrinhoCompras carrinhoCompras;
+	
 
+	public Cliente(String nome, String cpf) {
+		super();
+		this.nome = nome;
+		this.cpf = cpf;
+	}
+
+	public Cliente() {
+		super();
+	}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	public CarrinhoCompras getCarrinho() {
+		return carrinho;
+	}
+
+	public void setCarrinho(CarrinhoCompras carrinho) {
+		this.carrinho = carrinho;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	
 }
