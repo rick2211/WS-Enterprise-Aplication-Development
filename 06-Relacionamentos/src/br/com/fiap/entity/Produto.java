@@ -2,11 +2,15 @@ package br.com.fiap.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -24,11 +28,30 @@ public class Produto {
 	@OneToMany(mappedBy="produto")
 	private List<ItemCarrinho> itens; 
 	
+	@ManyToMany(cascade=CascadeType.PERSIST)
+	@JoinTable(name= "T_PRODUTO_FORNECEDOR", joinColumns = @JoinColumn(name="cd_produto"),
+	inverseJoinColumns= @JoinColumn(name="cd_fornercedor"))
+	private List<Fornecedor> fornecedores;
+	
 	@Column(name = "nm_produto", nullable = false, length = 100)
 	private String nome;
 
 	@Column(name = "vl_produto", nullable = false)
 	private double valor;
+
+	
+	public Produto() {
+		super();
+	}
+
+	
+	public Produto(List<Fornecedor> fornecedores, String nome, double valor) {
+		super();
+		this.fornecedores = fornecedores;
+		this.nome = nome;
+		this.valor = valor;
+	}
+
 
 	public int getCodigo() {
 		return codigo;
@@ -60,6 +83,14 @@ public class Produto {
 
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+
+	public List<Fornecedor> getFornecedores() {
+		return fornecedores;
+	}
+
+	public void setFornecedores(List<Fornecedor> fornecedores) {
+		this.fornecedores = fornecedores;
 	}
 
 	

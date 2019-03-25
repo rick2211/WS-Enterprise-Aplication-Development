@@ -4,6 +4,9 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -15,7 +18,9 @@ import br.com.fiap.dao.impl.CarrinhoComprasDAOImpl;
 import br.com.fiap.dao.impl.ClienteDAOImpl;
 import br.com.fiap.entity.CarrinhoCompras;
 import br.com.fiap.entity.Cliente;
+import br.com.fiap.entity.Fornecedor;
 import br.com.fiap.entity.ItemCarrinho;
+import br.com.fiap.entity.Produto;
 import br.com.fiap.exception.CodigoInvalidoException;
 import br.com.fiap.exception.CommitException;
 import br.com.fiap.singleton.EntityManagerFactorySingleton;
@@ -48,6 +53,13 @@ class CarrinhoCompraDAOTest {
 		
 		compras.addItem(item1);
 		compras.addItem(item2);
+		Fornecedor f1 = new Fornecedor("Nike", "1231233");
+		Fornecedor f2 = new Fornecedor("Adidas", "1231673");
+		List<Fornecedor> fornecedores = new ArrayList<>();
+		fornecedores.add(f1);
+		fornecedores.add(f2);
+		Produto produto1 = new Produto(fornecedores, "Bola", 100);
+		Produto produto2 = new Produto(fornecedores, "Papete", 500);
 		try {
 		clienteDao.cadastrar(cliente);
 		carrinhoDao.cadastrar(compras);
