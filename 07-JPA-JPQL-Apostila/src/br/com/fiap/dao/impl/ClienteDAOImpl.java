@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 
 import br.com.fiap.dao.ClienteDAO;
 import br.com.fiap.entity.Cliente;
+import br.com.fiap.entity.Pacote;
 
 public class ClienteDAOImpl extends GenericDAOImpl<Cliente,Integer> implements ClienteDAO{
 
@@ -24,7 +25,7 @@ public class ClienteDAOImpl extends GenericDAOImpl<Cliente,Integer> implements C
 
 	@Override
 	public List<Cliente> buscarPorNome(String nome) {
-		return em.createQuery("from Cliente c where c.nome "
+		return em.createQuery("from Cliente c where upper(c.nome) "
 				+ "like :name",Cliente.class)
 				.setParameter("name", "%" + nome + "%")
 				.getResultList();
@@ -45,6 +46,32 @@ public class ClienteDAOImpl extends GenericDAOImpl<Cliente,Integer> implements C
 				.setParameter("d", dias)
 				.getResultList();
 	}
+
+	@Override
+	public List<Cliente> buscar(String nome, String cidade) {
+		
+		return em.createNamedQuery("Cliente.porNomeECidade", Cliente.class)
+				.setParameter("S","%" + nome +"%")
+				.setParameter("C","%" + cidade +"%")
+				.getResultList();
+	}
+
+	@Override
+	public List<Cliente> buscarPorEstados(List<String> estados) {
+	
+		return em.createNamedQuery("Cliente.porEstados", Cliente.class)
+				.setParameter("e", estados)
+				.getResultList();
+	}
+
+	@Override
+	public long contarPorEstado(String estado) {
+		return em.createQuery("select count (c) from Cliente c where c.endereco.cidade.uf = :e", Long.class)
+				.setParameter("e", estado)
+				.getSingleResult();
+	}
+
+	
 
 }
 
