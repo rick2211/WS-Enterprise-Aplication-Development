@@ -23,22 +23,26 @@ class ReservaDAOTeste {
 		dao = new ReservaDAOImpl(EntityManagerFactorySingleton
 			.getInstance().createEntityManager());
 	}
-	@Test
-	void pesquisarPorData() {
-		Calendar data = 
-				new GregorianCalendar(2017, Calendar.MARCH, 20);
-				List<Reserva> lista = dao.buscarPorData(data);
-			for (Reserva reserva : lista) {
-				assertEquals(data, reserva.getDataReserva());
-			}
-				}
 	
 	@Test
-	void listar() {
+	void pesquisarPorDataTest() {
+		Calendar data = 
+			new GregorianCalendar(2017, 2, 20);
+		List<Reserva> lista = dao.buscarPorData(data);
+		
+		assertEquals(1, lista.size());
+		
+		for (Reserva reserva : lista) {
+			assertEquals(data, reserva.getDataReserva());
+		}
+	}
+	
+	@Test
+	void listarTest() {
 		
 		List<Reserva> lista = dao.listar();
 		
-		assertEquals(4, lista.size());
+		assertEquals(2, lista.size());
 		
 	}
 

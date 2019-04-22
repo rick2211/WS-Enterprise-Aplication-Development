@@ -174,7 +174,8 @@ public class PopulaBanco {
 		/**
 		 * FIM Persistencia de reservas
 		 */
-		
+		em.close();
+		EntityManagerFactorySingleton.getInstance().close();
 	}
 
 }

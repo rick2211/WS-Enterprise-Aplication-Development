@@ -24,7 +24,7 @@ public class Reserva {
 	@Column(name="NUMERO_DIAS")
 	private int numeroDias;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name="DT_RESERVA")
 	private Calendar dataReserva;
 	
